@@ -13,6 +13,7 @@ type InputClickEditProps = {
   saveButtonLabel?: React.ReactNode;
   editButtonLabel?: React.ReactNode;
   label?: string;
+  inputType?: string;
   onEditButtonClick?: () => void;
   onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
@@ -24,6 +25,7 @@ const InputClickEdit = ({
   editButtonClassName,
   editWrapperClassName,
   value = "",
+  inputType = "text",
   isEditing = false,
   saveButtonLabel = "Save",
   editButtonLabel = "Edit",
@@ -51,7 +53,7 @@ const InputClickEdit = ({
     className: inputClassName,
     onChange,
     value,
-    type: "text",
+    type: inputType,
   };
 
   return (
