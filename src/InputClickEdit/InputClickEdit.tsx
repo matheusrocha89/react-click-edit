@@ -20,19 +20,19 @@ type InputClickEditProps = {
 };
 
 const InputClickEdit = ({
-  className,
-  inputClassName,
-  editButtonClassName,
-  editWrapperClassName,
+  className = "",
+  inputClassName = "",
+  editButtonClassName = "",
+  editWrapperClassName = "",
   value = "",
   inputType = "text",
   isEditing = false,
   saveButtonLabel = "Save",
   editButtonLabel = "Edit",
-  label,
-  onEditButtonClick,
-  onInputChange,
-  onSaveButtonClick,
+  label = "",
+  onEditButtonClick = () => {},
+  onInputChange = () => {},
+  onSaveButtonClick = () => {},
 }: InputClickEditProps) => {
   const [editing, setEditing] = useState<boolean>(isEditing);
   const onEditClick = () => {
