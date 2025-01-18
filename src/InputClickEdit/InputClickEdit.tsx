@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { LuPencil } from "react-icons/lu";
+import { LuCheck } from "react-icons/lu";
 import cn from "classnames";
 
 import styles from "./InputClickEdit.module.css";
@@ -15,6 +17,10 @@ type InputClickEditProps = {
   editButtonLabel?: React.ReactNode;
   label?: string;
   inputType?: string;
+  showIcons?: boolean;
+  editIcon?: React.ReactNode;
+  saveIcon?: React.ReactNode;
+  iconPosition?: "left" | "right";
   onEditButtonClick?: () => void;
   onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
@@ -32,6 +38,10 @@ const InputClickEdit = ({
   saveButtonLabel = "Save",
   editButtonLabel = "Edit",
   label = "",
+  showIcons = false,
+  saveIcon = <LuCheck />,
+  editIcon = <LuPencil />,
+  iconPosition = "left",
   onEditButtonClick = () => {},
   onInputChange = () => {},
   onSaveButtonClick = () => {},
@@ -57,6 +67,10 @@ const InputClickEdit = ({
     value,
     type: inputType,
   };
+  const buttonBaseClassName = {
+    [styles.button]: true,
+    [styles.buttonReverse]: iconPosition === "right",
+  };
 
   return (
     <div className={cn(styles.wrapper, className)}>
@@ -71,9 +85,10 @@ const InputClickEdit = ({
             <input {...inputProps} />
           )}
           <button
-            className={cn(styles.button, saveButtonClassName)}
+            className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
           >
+            {showIcons && saveIcon}
             {saveButtonLabel}
           </button>
         </div>
@@ -81,9 +96,10 @@ const InputClickEdit = ({
         <div className={styles.contentWrapper}>
           <span>{value}</span>
           <button
-            className={cn(styles.button, editButtonClassName)}
+            className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
           >
+            {showIcons && editIcon}
             {editButtonLabel}
           </button>
         </div>
