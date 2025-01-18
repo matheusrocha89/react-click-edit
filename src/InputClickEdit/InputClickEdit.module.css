@@ -1,7 +1,44 @@
-.editWrapper {
+.wrapper {
+  font-size: 16px;
+}
+
+.contentWrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   width: 100%;
   height: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.input:focus {
+  outline: none;
+  border-bottom: 1px solid #646cff;
+}
+
+.button {
+  border: 0;
+  border-radius: 4px;
+  background-color: #646cff;
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #535bf2;
+}
+
+.button:active {
+  background-color: #646cff;
 }

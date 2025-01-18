@@ -8,6 +8,7 @@ type InputClickEditProps = {
   isEditing: boolean;
   inputClassName?: string;
   editButtonClassName?: string;
+  saveButtonClassName?: string;
   editWrapperClassName?: string;
   value?: string;
   saveButtonLabel?: React.ReactNode;
@@ -23,6 +24,7 @@ const InputClickEdit = ({
   className = "",
   inputClassName = "",
   editButtonClassName = "",
+  saveButtonClassName = "",
   editWrapperClassName = "",
   value = "",
   inputType = "text",
@@ -50,16 +52,16 @@ const InputClickEdit = ({
   };
 
   const inputProps = {
-    className: inputClassName,
+    className: cn(styles.input, inputClassName),
     onChange,
     value,
     type: inputType,
   };
 
   return (
-    <div className={className}>
+    <div className={cn(styles.wrapper, className)}>
       {editing ? (
-        <div className={cn(styles.editWrapper, editWrapperClassName)}>
+        <div className={cn(styles.contentWrapper, editWrapperClassName)}>
           {label ? (
             <label>
               {label}
@@ -68,12 +70,20 @@ const InputClickEdit = ({
           ) : (
             <input {...inputProps} />
           )}
-          <button onClick={handleSave}>{saveButtonLabel}</button>
+          <button
+            className={cn(styles.button, saveButtonClassName)}
+            onClick={handleSave}
+          >
+            {saveButtonLabel}
+          </button>
         </div>
       ) : (
-        <div>
+        <div className={styles.contentWrapper}>
           <span>{value}</span>
-          <button className={editButtonClassName} onClick={onEditClick}>
+          <button
+            className={cn(styles.button, editButtonClassName)}
+            onClick={onEditClick}
+          >
             {editButtonLabel}
           </button>
         </div>
