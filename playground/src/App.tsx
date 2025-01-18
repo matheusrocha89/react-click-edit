@@ -2,8 +2,13 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { InputClickEdit } from "@nobrainers/react-click-edit";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [value, setValue] = useState("");
+  const handleChange = (value: string) => {
+    setValue(value);
+  };
   return (
     <>
       <div>
@@ -16,7 +21,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <InputClickEdit />
+        <InputClickEdit onInputChange={handleChange} value={value} />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
