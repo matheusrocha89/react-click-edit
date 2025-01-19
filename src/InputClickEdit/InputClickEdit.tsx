@@ -21,6 +21,7 @@ type InputClickEditProps = {
   editIcon?: React.ReactNode;
   saveIcon?: React.ReactNode;
   iconPosition?: "left" | "right";
+  justIcons?: boolean;
   onEditButtonClick?: () => void;
   onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
@@ -41,6 +42,7 @@ const InputClickEdit = ({
   showIcons = false,
   saveIcon = <LuCheck />,
   editIcon = <LuPencil />,
+  justIcons = false,
   iconPosition = "left",
   onEditButtonClick = () => {},
   onInputChange = () => {},
@@ -71,6 +73,7 @@ const InputClickEdit = ({
     [styles.button]: true,
     [styles.buttonReverse]: iconPosition === "right",
   };
+  const displayIcons = showIcons || justIcons;
 
   return (
     <div className={cn(styles.wrapper, className)}>
@@ -88,8 +91,8 @@ const InputClickEdit = ({
             className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
           >
-            {showIcons && saveIcon}
-            {saveButtonLabel}
+            {displayIcons && saveIcon}
+            {!justIcons && saveButtonLabel}
           </button>
         </div>
       ) : (
@@ -99,8 +102,8 @@ const InputClickEdit = ({
             className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
           >
-            {showIcons && editIcon}
-            {editButtonLabel}
+            {displayIcons && editIcon}
+            {!justIcons && editButtonLabel}
           </button>
         </div>
       )}
