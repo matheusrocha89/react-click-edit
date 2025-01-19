@@ -9,8 +9,7 @@
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "vitest run",
     "test:ci": "vitest run --coverage",
-    "test:watch": "vitest src",
-    "prepare": "husky"
+    "test:watch": "vitest src"
   },
   "keywords": [
     "react",
