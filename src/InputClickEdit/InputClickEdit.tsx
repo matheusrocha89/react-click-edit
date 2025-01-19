@@ -73,7 +73,6 @@ const InputClickEdit = ({
     [styles.button]: true,
     [styles.buttonReverse]: iconPosition === "right",
   };
-  const displayIcons = showIcons || iconsOnly;
 
   return (
     <div className={cn(styles.wrapper, className)}>
@@ -91,7 +90,7 @@ const InputClickEdit = ({
             className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
           >
-            {displayIcons && saveIcon}
+            {(showIcons || iconsOnly) && saveIcon}
             {!iconsOnly && saveButtonLabel}
           </button>
         </div>
@@ -102,7 +101,7 @@ const InputClickEdit = ({
             className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
           >
-            {displayIcons && editIcon}
+            {(showIcons || iconsOnly) && editIcon}
             {!iconsOnly && editButtonLabel}
           </button>
         </div>
