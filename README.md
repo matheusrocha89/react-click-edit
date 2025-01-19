@@ -49,7 +49,7 @@ function App() {
 | onEditButtonClick    | () => void              | () => {}       | Callback when edit button is clicked  |
 | onInputChange        | (value: string) => void | () => {}       | Callback when input value changes     |
 | onSaveButtonClick    | () => void              | () => {}       | Callback when save button is clicked  |
-| justIcons            | boolean                 | false          | Show only icons without button labels |
+| iconsOnly            | boolean                 | false          | Show only icons without button labels |
 
 ## 💡 Examples
 
@@ -87,7 +87,7 @@ function App() {
 ```tsx
 <InputClickEdit
   value="Icons only buttons"
-  justIcons
+  iconsOnly
   editIcon={<span>✎</span>}
   saveIcon={<span>✓</span>}
 />
