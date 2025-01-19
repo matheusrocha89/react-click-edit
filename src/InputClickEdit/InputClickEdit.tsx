@@ -89,6 +89,7 @@ const InputClickEdit = ({
           <button
             className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
+            aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
           >
             {(showIcons || iconsOnly) && saveIcon}
             {!iconsOnly && saveButtonLabel}
@@ -100,6 +101,7 @@ const InputClickEdit = ({
           <button
             className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
+            aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
           >
             {(showIcons || iconsOnly) && editIcon}
             {!iconsOnly && editButtonLabel}
