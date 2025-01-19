@@ -33,6 +33,18 @@
   padding: 8px 12px;
   font-size: 16px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buttonReverse {
+  flex-direction: row-reverse;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .button:hover {

@@ -29,46 +29,55 @@ function App() {
 
 ## 🔧 Props
 
-| Prop                 | Type                    | Default  | Description                          |
-| -------------------- | ----------------------- | -------- | ------------------------------------ |
-| value                | string                  | ""       | Text to display and edit             |
-| isEditing            | boolean                 | false    | Initial editing state                |
-| inputType            | string                  | "text"   | Type of input field                  |
-| label                | string                  | ""       | Label for the input                  |
-| className            | string                  | ""       | Container class name                 |
-| inputClassName       | string                  | ""       | Input field class name               |
-| editButtonClassName  | string                  | ""       | Edit button class name               |
-| editWrapperClassName | string                  | ""       | Edit mode wrapper class name         |
-| saveButtonLabel      | React.ReactNode         | "Save"   | Custom save button label             |
-| editButtonLabel      | React.ReactNode         | "Edit"   | Custom edit button label             |
-| onEditButtonClick    | () => void              | () => {} | Callback when edit button is clicked |
-| onInputChange        | (value: string) => void | () => {} | Callback when input value changes    |
-| onSaveButtonClick    | () => void              | () => {} | Callback when save button is clicked |
+| Prop                 | Type                    | Default        | Description                          |
+| -------------------- | ----------------------- | -------------- | ------------------------------------ |
+| value                | string                  | ""             | Text to display and edit             |
+| isEditing            | boolean                 | false          | Initial editing state                |
+| inputType            | string                  | "text"         | Type of input field                  |
+| label                | string                  | ""             | Label for the input                  |
+| className            | string                  | ""             | Container class name                 |
+| inputClassName       | string                  | ""             | Input field class name               |
+| editButtonClassName  | string                  | ""             | Edit button class name               |
+| saveButtonClassName  | string                  | ""             | Save button class name               |
+| editWrapperClassName | string                  | ""             | Edit mode wrapper class name         |
+| saveButtonLabel      | React.ReactNode         | "Save"         | Custom save button label             |
+| editButtonLabel      | React.ReactNode         | "Edit"         | Custom edit button label             |
+| showIcons            | boolean                 | false          | Show icons in buttons                |
+| editIcon             | React.ReactNode         | `<LuPencil />` | Custom edit icon                     |
+| saveIcon             | React.ReactNode         | `<LuCheck />`  | Custom save icon                     |
+| iconPosition         | "left" \| "right"       | "left"         | Position of icons in buttons         |
+| onEditButtonClick    | () => void              | () => {}       | Callback when edit button is clicked |
+| onInputChange        | (value: string) => void | () => {}       | Callback when input value changes    |
+| onSaveButtonClick    | () => void              | () => {}       | Callback when save button is clicked |
 
-Plus styling props:
+## 💡 Examples
 
-- `className`
-- `inputClassName`
-- `editButtonClassName`
-- `editWrapperClassName`
+### Basic Usage
 
-And customization props:
+```tsx
+<InputClickEdit value={name} onInputChange={setName} />
+```
 
-- `saveButtonLabel` (default: "Save")
-- `editButtonLabel` (default: "Edit")
-
-## 💡 Example with All Features
+### With Icons
 
 ```tsx
 <InputClickEdit
   value="Click me to edit"
-  label="Username"
-  inputType="text"
-  saveButtonLabel="✅ Done"
-  editButtonLabel="✏️ Edit"
-  className="my-editor"
-  onInputChange={(value) => console.log("New value:", value)}
-  onSaveButtonClick={() => console.log("Saved!")}
+  showIcons
+  iconPosition="right"
+  saveButtonClassName="save-btn"
+  editButtonClassName="edit-btn"
+/>
+```
+
+### Custom Icons
+
+```tsx
+<InputClickEdit
+  value="Custom icons"
+  showIcons
+  editIcon={<span>✍️</span>}
+  saveIcon={<span>👍</span>}
 />
 ```
 
