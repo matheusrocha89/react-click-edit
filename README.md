@@ -29,26 +29,27 @@ function App() {
 
 ## 🔧 Props
 
-| Prop                 | Type                    | Default        | Description                          |
-| -------------------- | ----------------------- | -------------- | ------------------------------------ |
-| value                | string                  | ""             | Text to display and edit             |
-| isEditing            | boolean                 | false          | Initial editing state                |
-| inputType            | string                  | "text"         | Type of input field                  |
-| label                | string                  | ""             | Label for the input                  |
-| className            | string                  | ""             | Container class name                 |
-| inputClassName       | string                  | ""             | Input field class name               |
-| editButtonClassName  | string                  | ""             | Edit button class name               |
-| saveButtonClassName  | string                  | ""             | Save button class name               |
-| editWrapperClassName | string                  | ""             | Edit mode wrapper class name         |
-| saveButtonLabel      | React.ReactNode         | "Save"         | Custom save button label             |
-| editButtonLabel      | React.ReactNode         | "Edit"         | Custom edit button label             |
-| showIcons            | boolean                 | false          | Show icons in buttons                |
-| editIcon             | React.ReactNode         | `<LuPencil />` | Custom edit icon                     |
-| saveIcon             | React.ReactNode         | `<LuCheck />`  | Custom save icon                     |
-| iconPosition         | "left" \| "right"       | "left"         | Position of icons in buttons         |
-| onEditButtonClick    | () => void              | () => {}       | Callback when edit button is clicked |
-| onInputChange        | (value: string) => void | () => {}       | Callback when input value changes    |
-| onSaveButtonClick    | () => void              | () => {}       | Callback when save button is clicked |
+| Prop                 | Type                    | Default        | Description                           |
+| -------------------- | ----------------------- | -------------- | ------------------------------------- |
+| value                | string                  | ""             | Text to display and edit              |
+| isEditing            | boolean                 | false          | Initial editing state                 |
+| inputType            | string                  | "text"         | Type of input field                   |
+| label                | string                  | ""             | Label for the input                   |
+| className            | string                  | ""             | Container class name                  |
+| inputClassName       | string                  | ""             | Input field class name                |
+| editButtonClassName  | string                  | ""             | Edit button class name                |
+| saveButtonClassName  | string                  | ""             | Save button class name                |
+| editWrapperClassName | string                  | ""             | Edit mode wrapper class name          |
+| saveButtonLabel      | React.ReactNode         | "Save"         | Custom save button label              |
+| editButtonLabel      | React.ReactNode         | "Edit"         | Custom edit button label              |
+| showIcons            | boolean                 | false          | Show icons in buttons                 |
+| editIcon             | React.ReactNode         | `<LuPencil />` | Custom edit icon                      |
+| saveIcon             | React.ReactNode         | `<LuCheck />`  | Custom save icon                      |
+| iconPosition         | "left" \| "right"       | "left"         | Position of icons in buttons          |
+| onEditButtonClick    | () => void              | () => {}       | Callback when edit button is clicked  |
+| onInputChange        | (value: string) => void | () => {}       | Callback when input value changes     |
+| onSaveButtonClick    | () => void              | () => {}       | Callback when save button is clicked  |
+| iconsOnly            | boolean                 | false          | Show only icons without button labels |
 
 ## 💡 Examples
 
@@ -78,6 +79,17 @@ function App() {
   showIcons
   editIcon={<span>✍️</span>}
   saveIcon={<span>👍</span>}
+/>
+```
+
+### Icons Only (No Text Labels)
+
+```tsx
+<InputClickEdit
+  value="Icons only buttons"
+  iconsOnly
+  editIcon={<span>✎</span>}
+  saveIcon={<span>✓</span>}
 />
 ```
 

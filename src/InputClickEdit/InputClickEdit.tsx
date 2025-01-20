@@ -21,6 +21,7 @@ type InputClickEditProps = {
   editIcon?: React.ReactNode;
   saveIcon?: React.ReactNode;
   iconPosition?: "left" | "right";
+  iconsOnly?: boolean;
   onEditButtonClick?: () => void;
   onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
@@ -41,6 +42,7 @@ const InputClickEdit = ({
   showIcons = false,
   saveIcon = <LuCheck />,
   editIcon = <LuPencil />,
+  iconsOnly = false,
   iconPosition = "left",
   onEditButtonClick = () => {},
   onInputChange = () => {},
@@ -87,9 +89,10 @@ const InputClickEdit = ({
           <button
             className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
+            aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
           >
-            {showIcons && saveIcon}
-            {saveButtonLabel}
+            {(showIcons || iconsOnly) && saveIcon}
+            {!iconsOnly && saveButtonLabel}
           </button>
         </div>
       ) : (
@@ -98,9 +101,10 @@ const InputClickEdit = ({
           <button
             className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
+            aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
           >
-            {showIcons && editIcon}
-            {editButtonLabel}
+            {(showIcons || iconsOnly) && editIcon}
+            {!iconsOnly && editButtonLabel}
           </button>
         </div>
       )}
