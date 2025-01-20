@@ -8,6 +8,9 @@
 - 🎨 Fully customizable styling
 - 🔄 Controlled component
 - 🚀 TypeScript support
+- 🎨 Custom icons support
+- 📝 Label support
+- 🔤 Multiple input types
 
 ## 📦 Installation
 
@@ -29,68 +32,128 @@ function App() {
 
 ## 🔧 Props
 
-| Prop                 | Type                    | Default        | Description                           |
-| -------------------- | ----------------------- | -------------- | ------------------------------------- |
-| value                | string                  | ""             | Text to display and edit              |
-| isEditing            | boolean                 | false          | Initial editing state                 |
-| inputType            | string                  | "text"         | Type of input field                   |
-| label                | string                  | ""             | Label for the input                   |
-| className            | string                  | ""             | Container class name                  |
-| inputClassName       | string                  | ""             | Input field class name                |
-| editButtonClassName  | string                  | ""             | Edit button class name                |
-| saveButtonClassName  | string                  | ""             | Save button class name                |
-| editWrapperClassName | string                  | ""             | Edit mode wrapper class name          |
-| saveButtonLabel      | React.ReactNode         | "Save"         | Custom save button label              |
-| editButtonLabel      | React.ReactNode         | "Edit"         | Custom edit button label              |
-| showIcons            | boolean                 | false          | Show icons in buttons                 |
-| editIcon             | React.ReactNode         | `<LuPencil />` | Custom edit icon                      |
-| saveIcon             | React.ReactNode         | `<LuCheck />`  | Custom save icon                      |
-| iconPosition         | "left" \| "right"       | "left"         | Position of icons in buttons          |
-| onEditButtonClick    | () => void              | () => {}       | Callback when edit button is clicked  |
-| onInputChange        | (value: string) => void | () => {}       | Callback when input value changes     |
-| onSaveButtonClick    | () => void              | () => {}       | Callback when save button is clicked  |
-| iconsOnly            | boolean                 | false          | Show only icons without button labels |
+| Prop                 | Type                    | Default  | Description                                 |
+| -------------------- | ----------------------- | -------- | ------------------------------------------- |
+| value                | string                  | ""       | Text to display and edit                    |
+| isEditing            | boolean                 | false    | Initial editing state                       |
+| inputType            | string                  | "text"   | HTML input type (text, number, email, etc.) |
+| label                | string                  | ""       | Label for the input field                   |
+| className            | string                  | ""       | Container class name                        |
+| inputClassName       | string                  | ""       | Input field class name                      |
+| editButtonClassName  | string                  | ""       | Edit button class name                      |
+| saveButtonClassName  | string                  | ""       | Save button class name                      |
+| editWrapperClassName | string                  | ""       | Edit mode wrapper class name                |
+| saveButtonLabel      | React.ReactNode         | "Save"   | Custom save button label                    |
+| editButtonLabel      | React.ReactNode         | "Edit"   | Custom edit button label                    |
+| showIcons            | boolean                 | false    | Toggle button icons visibility              |
+| iconsOnly            | boolean                 | false    | Show only icons without text labels         |
+| editIcon             | React.ElementType       | LuPencil | Custom edit icon component                  |
+| saveIcon             | React.ElementType       | LuCheck  | Custom save icon component                  |
+| iconPosition         | "left" \| "right"       | "left"   | Position of icons in buttons                |
+| onEditButtonClick    | () => void              | () => {} | Callback when edit button is clicked        |
+| onInputChange        | (value: string) => void | () => {} | Callback when input value changes           |
+| onSaveButtonClick    | () => void              | () => {} | Callback when save button is clicked        |
 
 ## 💡 Examples
 
 ### Basic Usage
 
 ```tsx
-<InputClickEdit value={name} onInputChange={setName} />
+function BasicExample() {
+  const [name, setName] = useState("John Doe");
+  return <InputClickEdit value={name} onInputChange={setName} />;
+}
 ```
 
-### With Icons
+### With Label and Number Input
+
+```tsx
+<InputClickEdit
+  label="Age"
+  inputType="number"
+  value="25"
+  onInputChange={(value) => console.log(value)}
+/>
+```
+
+### With Icons and Custom Styling
 
 ```tsx
 <InputClickEdit
   value="Click me to edit"
   showIcons
   iconPosition="right"
+  className="container"
+  inputClassName="custom-input"
   saveButtonClassName="save-btn"
   editButtonClassName="edit-btn"
+  editWrapperClassName="edit-wrapper"
 />
 ```
 
-### Custom Icons
+### Custom Icons and Labels
 
 ```tsx
+import { FiEdit } from "react-icons/fi";
+import { FiSave } from "react-icons/fi";
+
 <InputClickEdit
-  value="Custom icons"
+  value="Custom everything"
   showIcons
-  editIcon={<span>✍️</span>}
-  saveIcon={<span>👍</span>}
-/>
+  editIcon={FiEdit}
+  saveIcon={FiSave}
+  editButtonLabel="Modify"
+  saveButtonLabel="Update"
+/>;
 ```
 
-### Icons Only (No Text Labels)
+### Controlled Editing State
+
+```tsx
+function ControlledExample() {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("Control me");
+
+  return (
+    <InputClickEdit
+      value={value}
+      isEditing={isEditing}
+      onEditButtonClick={() => setIsEditing(true)}
+      onSaveButtonClick={() => setIsEditing(false)}
+      onInputChange={setValue}
+    />
+  );
+}
+```
+
+### With Icons Only
 
 ```tsx
 <InputClickEdit
-  value="Icons only buttons"
+  value="Icons only"
+  showIcons
   iconsOnly
-  editIcon={<span>✎</span>}
-  saveIcon={<span>✓</span>}
+  editIcon={FiEdit}
+  saveIcon={FiSave}
 />
+```
+
+## 🎨 Styling
+
+The component comes with minimal default styling and can be fully customized using CSS classes. All main elements accept custom class names through props.
+
+Example with CSS modules:
+
+```tsx
+import styles from "./styles.module.css";
+
+<InputClickEdit
+  className={styles.wrapper}
+  inputClassName={styles.input}
+  editButtonClassName={styles.editButton}
+  saveButtonClassName={styles.saveButton}
+  editWrapperClassName={styles.editingWrapper}
+/>;
 ```
 
 ## 📄 License

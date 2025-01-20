@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LuPencil } from "react-icons/lu";
 import { LuCheck } from "react-icons/lu";
 import cn from "classnames";
@@ -7,7 +7,7 @@ import styles from "./InputClickEdit.module.css";
 
 type InputClickEditProps = {
   className?: string;
-  isEditing: boolean;
+  isEditing?: boolean;
   inputClassName?: string;
   editButtonClassName?: string;
   saveButtonClassName?: string;
@@ -18,8 +18,8 @@ type InputClickEditProps = {
   label?: string;
   inputType?: string;
   showIcons?: boolean;
-  editIcon?: React.ReactNode;
-  saveIcon?: React.ReactNode;
+  editIcon?: React.ElementType;
+  saveIcon?: React.ElementType;
   iconPosition?: "left" | "right";
   iconsOnly?: boolean;
   onEditButtonClick?: () => void;
@@ -40,8 +40,8 @@ const InputClickEdit = ({
   editButtonLabel = "Edit",
   label = "",
   showIcons = false,
-  saveIcon = <LuCheck />,
-  editIcon = <LuPencil />,
+  saveIcon,
+  editIcon,
   iconsOnly = false,
   iconPosition = "left",
   onEditButtonClick = () => {},
@@ -49,6 +49,9 @@ const InputClickEdit = ({
   onSaveButtonClick = () => {},
 }: InputClickEditProps) => {
   const [editing, setEditing] = useState<boolean>(isEditing);
+  useEffect(() => {
+    setEditing(isEditing);
+  }, [isEditing]);
   const onEditClick = () => {
     setEditing(true);
     onEditButtonClick?.();
@@ -74,6 +77,9 @@ const InputClickEdit = ({
     [styles.buttonReverse]: iconPosition === "right",
   };
 
+  const EditIcon = editIcon || LuPencil;
+  const SaveIcon = saveIcon || LuCheck;
+
   return (
     <div className={cn(styles.wrapper, className)}>
       {editing ? (
@@ -87,11 +93,12 @@ const InputClickEdit = ({
             <input {...inputProps} />
           )}
           <button
+            data-testid="action-button"
             className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
             aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
           >
-            {(showIcons || iconsOnly) && saveIcon}
+            {(showIcons || iconsOnly) && <SaveIcon data-testid="save-icon" />}
             {!iconsOnly && saveButtonLabel}
           </button>
         </div>
@@ -99,11 +106,12 @@ const InputClickEdit = ({
         <div className={styles.contentWrapper}>
           <span>{value}</span>
           <button
+            data-testid="action-button"
             className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
             aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
           >
-            {(showIcons || iconsOnly) && editIcon}
+            {(showIcons || iconsOnly) && <EditIcon data-testid="edit-icon" />}
             {!iconsOnly && editButtonLabel}
           </button>
         </div>
