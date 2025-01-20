@@ -32,26 +32,27 @@ function App() {
 
 ## 🔧 Props
 
-| Prop                 | Type                    | Default              | Description                                 |
-| -------------------- | ----------------------- | -------------------- | ------------------------------------------- |
-| value                | string                  | ""                   | Text to display and edit                    |
-| isEditing            | boolean                 | false                | Initial editing state                       |
-| inputType            | string                  | "text"               | HTML input type (text, number, email, etc.) |
-| label                | string                  | ""                   | Label for the input field                   |
-| className            | string                  | ""                   | Container class name                        |
-| inputClassName       | string                  | ""                   | Input field class name                      |
-| editButtonClassName  | string                  | ""                   | Edit button class name                      |
-| saveButtonClassName  | string                  | ""                   | Save button class name                      |
-| editWrapperClassName | string                  | ""                   | Edit mode wrapper class name                |
-| saveButtonLabel      | React.ReactNode         | "Save"               | Custom save button label                    |
-| editButtonLabel      | React.ReactNode         | "Edit"               | Custom edit button label                    |
-| showIcons            | boolean                 | false                | Toggle button icons visibility              |
-| editIcon             | React.ElementType       | () => `<LuPencil />` | Custom edit icon component                  |
-| saveIcon             | React.ElementType       | () => `<LuCheck />`  | Custom save icon component                  |
-| iconPosition         | "left" \| "right"       | "left"               | Position of icons in buttons                |
-| onEditButtonClick    | () => void              | () => {}             | Callback when edit button is clicked        |
-| onInputChange        | (value: string) => void | () => {}             | Callback when input value changes           |
-| onSaveButtonClick    | () => void              | () => {}             | Callback when save button is clicked        |
+| Prop                 | Type                    | Default  | Description                                 |
+| -------------------- | ----------------------- | -------- | ------------------------------------------- |
+| value                | string                  | ""       | Text to display and edit                    |
+| isEditing            | boolean                 | false    | Initial editing state                       |
+| inputType            | string                  | "text"   | HTML input type (text, number, email, etc.) |
+| label                | string                  | ""       | Label for the input field                   |
+| className            | string                  | ""       | Container class name                        |
+| inputClassName       | string                  | ""       | Input field class name                      |
+| editButtonClassName  | string                  | ""       | Edit button class name                      |
+| saveButtonClassName  | string                  | ""       | Save button class name                      |
+| editWrapperClassName | string                  | ""       | Edit mode wrapper class name                |
+| saveButtonLabel      | React.ReactNode         | "Save"   | Custom save button label                    |
+| editButtonLabel      | React.ReactNode         | "Edit"   | Custom edit button label                    |
+| showIcons            | boolean                 | false    | Toggle button icons visibility              |
+| iconsOnly            | boolean                 | false    | Show only icons without text labels         |
+| editIcon             | React.ElementType       | LuPencil | Custom edit icon component                  |
+| saveIcon             | React.ElementType       | LuCheck  | Custom save icon component                  |
+| iconPosition         | "left" \| "right"       | "left"   | Position of icons in buttons                |
+| onEditButtonClick    | () => void              | () => {} | Callback when edit button is clicked        |
+| onInputChange        | (value: string) => void | () => {} | Callback when input value changes           |
+| onSaveButtonClick    | () => void              | () => {} | Callback when save button is clicked        |
 
 ## 💡 Examples
 
@@ -123,6 +124,18 @@ function ControlledExample() {
     />
   );
 }
+```
+
+### With Icons Only
+
+```tsx
+<InputClickEdit
+  value="Icons only"
+  showIcons
+  iconsOnly
+  editIcon={FiEdit}
+  saveIcon={FiSave}
+/>
 ```
 
 ## 🎨 Styling
