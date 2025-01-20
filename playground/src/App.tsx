@@ -1,45 +1,40 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import { LuAArrowDown, LuArrowUp } from "react-icons/lu";
 import { InputClickEdit } from "@nobrainers/react-click-edit";
 import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [value, setValue] = useState("");
-  const handleChange = (value: string) => {
-    setValue(value);
-  };
+  const [valueOne, setValueOne] = useState("Test One");
+  const [valueTwo, setValueTwo] = useState("Test Two");
+  const [valueThree, setValueThree] = useState("Test Three");
+
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <h1>React Click Edit</h1>
       <div className="card">
-        <InputClickEdit onInputChange={handleChange} value={value} showIcons />
-        <br />
-        <InputClickEdit onInputChange={handleChange} value={value} iconsOnly />
-        <br />
+        <h4>Label and Icon</h4>
         <InputClickEdit
-          onInputChange={handleChange}
-          value={value}
+          onInputChange={setValueOne}
+          value={valueOne}
+          showIcons
+        />
+        <br />
+        <h4>Just Icons</h4>
+        <InputClickEdit
+          onInputChange={setValueTwo}
+          value={valueTwo}
+          iconsOnly
+        />
+        <br />
+        <h4>Custom Icons</h4>
+        <InputClickEdit
+          onInputChange={setValueThree}
+          value={valueThree}
           showIcons
           saveIcon={LuAArrowDown}
           editIcon={LuArrowUp}
         />
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
