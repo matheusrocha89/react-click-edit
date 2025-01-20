@@ -21,6 +21,7 @@ type InputClickEditProps = {
   editIcon?: React.ElementType;
   saveIcon?: React.ElementType;
   iconPosition?: "left" | "right";
+  iconsOnly?: boolean;
   onEditButtonClick?: () => void;
   onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
@@ -41,6 +42,7 @@ const InputClickEdit = ({
   showIcons = false,
   saveIcon,
   editIcon,
+  iconsOnly = false,
   iconPosition = "left",
   onEditButtonClick = () => {},
   onInputChange = () => {},
@@ -94,9 +96,10 @@ const InputClickEdit = ({
             data-testid="action-button"
             className={cn(buttonBaseClassName, saveButtonClassName)}
             onClick={handleSave}
+            aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
           >
-            {showIcons && <SaveIcon data-testid="save-icon" />}
-            {saveButtonLabel}
+            {(showIcons || iconsOnly) && <SaveIcon data-testid="save-icon" />}
+            {!iconsOnly && saveButtonLabel}
           </button>
         </div>
       ) : (
@@ -106,9 +109,10 @@ const InputClickEdit = ({
             data-testid="action-button"
             className={cn(buttonBaseClassName, editButtonClassName)}
             onClick={onEditClick}
+            aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
           >
-            {showIcons && <EditIcon data-testid="edit-icon" />}
-            {editButtonLabel}
+            {(showIcons || iconsOnly) && <EditIcon data-testid="edit-icon" />}
+            {!iconsOnly && editButtonLabel}
           </button>
         </div>
       )}
