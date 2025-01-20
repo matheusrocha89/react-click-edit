@@ -19,12 +19,11 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: true,
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "ReactClickToEdit",
       formats: ["es", "umd"],
-      fileName: format => `click-to-edit.${format}.js`,
+      fileName: (format) => `click-edit.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime", "classnames"],

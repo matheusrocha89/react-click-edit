@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "vite build",
+    "build:map": "vite build --sourcemap",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "vitest run",
     "test:ci": "vitest run --coverage",
-    "test:watch": "vitest src",
-    "prepare": "husky"
+    "test:watch": "vitest src"
   },
   "keywords": [
     "react",
@@ -24,6 +24,17 @@
     "README.md",
     "LICENSE"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/click-edit.es.js",
+      "require": "./dist/click-edit.umd.js"
+    },
+    "./dist/style.css": {
+      "import": "./dist/react-click-edit.css",
+      "require": "./dist/react-click-edit.css"
+    }
+  },
   "author": "",
   "license": "MIT",
   "peerDependencies": {
