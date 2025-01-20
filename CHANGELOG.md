@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/matheusrocha89/react-click-edit/compare/v1.1.0...v1.2.0) (2025-01-20)
+
+
+### Features
+
+* custom Icons ([8af0754](https://github.com/matheusrocha89/react-click-edit/commit/8af07540745f4475d8578ed563b9108432270e64))
+
 # [1.1.0](https://github.com/matheusrocha89/react-click-edit/compare/v1.0.0...v1.1.0) (2025-01-20)
 
 
