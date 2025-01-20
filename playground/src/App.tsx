@@ -1,5 +1,6 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import { LuAArrowDown, LuArrowUp } from "react-icons/lu";
 import { InputClickEdit } from "@nobrainers/react-click-edit";
 import "./App.css";
 import { useState } from "react";
@@ -23,7 +24,15 @@ function App() {
       <div className="card">
         <InputClickEdit onInputChange={handleChange} value={value} showIcons />
         <br />
-        <InputClickEdit onInputChange={handleChange} value={value} justIcons />
+        <InputClickEdit onInputChange={handleChange} value={value} iconsOnly />
+        <br />
+        <InputClickEdit
+          onInputChange={handleChange}
+          value={value}
+          showIcons
+          saveIcon={LuAArrowDown}
+          editIcon={LuArrowUp}
+        />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
