@@ -111,8 +111,8 @@ import { FiSave } from "react-icons/fi";
 
 ```tsx
 function ControlledExample() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState("Control me");
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("Control me");
 
   return (
     <InputClickEdit
