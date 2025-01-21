@@ -18,6 +18,14 @@
 npm install @nobrainers/react-click-edit
 ```
 
+### CSS Import
+
+The component requires its base CSS file to be imported. Add the following import to your application:
+
+```tsx
+import "@nobrainers/react-click-edit/dist/style.css";
+```
+
 ## 🚀 Quick Start
 
 ```tsx
@@ -140,12 +148,23 @@ function ControlledExample() {
 
 ## 🎨 Styling
 
-The component comes with minimal default styling and can be fully customized using CSS classes. All main elements accept custom class names through props.
+The component comes with minimal default styling through its base CSS file. You can override these styles or add additional styling using CSS classes. All main elements accept custom class names through props.
+
+### Default Styling
+
+Import the default styles in your application:
+
+```tsx
+import "@nobrainers/react-click-edit/dist/style.css";
+```
+
+### Custom Styling
 
 Example with CSS modules:
 
 ```tsx
-import styles from "./styles.module.css";
+import "@nobrainers/react-click-edit/dist/style.css"; // Base styles
+import styles from "./styles.module.css"; // Your custom styles
 
 <InputClickEdit
   className={styles.wrapper}
