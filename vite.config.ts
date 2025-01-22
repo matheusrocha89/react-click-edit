@@ -11,6 +11,7 @@ export default defineConfig({
     }),
     dts({
       insertTypesEntry: true,
+      exclude: ["**/*.test.tsx"],
     }),
   ],
   css: {
