@@ -1,5 +1,10 @@
 # @nobrainers/react-click-edit 📝
 
+## 🎥 Demo
+
+https://github.com/user-attachments/assets/58c8cca5-878a-4e64-aa06-a8e202318f2a
+
+
 > A lightweight, easy-to-use React component that makes any text editable with a click!
 
 ## ✨ Features
