@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/matheusrocha89/react-click-edit/compare/v1.2.0...v1.2.1) (2025-01-23)
+
+
+### Bug Fixes
+
+* exporting the styles ([44e7a9d](https://github.com/matheusrocha89/react-click-edit/commit/44e7a9d4a294b48a363de3d01954fec8f2103881))
+
 # [1.2.0](https://github.com/matheusrocha89/react-click-edit/compare/v1.1.0...v1.2.0) (2025-01-20)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@nobrainers/react-click-edit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "No Brainer input click to edit",
   "main": "dist/click-edit.umd.js",
   "module": "dist/click-edit.es.js",
