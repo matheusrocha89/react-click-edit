@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef } from "react";
 import { LuPencil } from "react-icons/lu";
 import { LuCheck } from "react-icons/lu";
 import cn from "classnames";
@@ -13,6 +13,7 @@ type InputClickEditProps = {
   saveButtonClassName?: string;
   editWrapperClassName?: string;
   value?: string;
+  defaultValue?: string;
   saveButtonLabel?: React.ReactNode;
   editButtonLabel?: React.ReactNode;
   label?: string;
@@ -25,100 +26,128 @@ type InputClickEditProps = {
   onEditButtonClick?: () => void;
   onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
-};
+} & Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "defaultValue" | "onChange" | "type"
+>;
 
-const InputClickEdit = ({
-  className = "",
-  inputClassName = "",
-  editButtonClassName = "",
-  saveButtonClassName = "",
-  editWrapperClassName = "",
-  value = "",
-  inputType = "text",
-  isEditing = false,
-  saveButtonLabel = "Save",
-  editButtonLabel = "Edit",
-  label = "",
-  showIcons = false,
-  saveIcon,
-  editIcon,
-  iconsOnly = false,
-  iconPosition = "left",
-  onEditButtonClick = () => {},
-  onInputChange = () => {},
-  onSaveButtonClick = () => {},
-}: InputClickEditProps) => {
-  const [editing, setEditing] = useState<boolean>(isEditing);
-  useEffect(() => {
-    setEditing(isEditing);
-  }, [isEditing]);
-  const onEditClick = () => {
-    setEditing(true);
-    onEditButtonClick?.();
-  };
+const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
+  (
+    {
+      className = "",
+      inputClassName = "",
+      editButtonClassName = "",
+      saveButtonClassName = "",
+      editWrapperClassName = "",
+      value,
+      defaultValue = "",
+      inputType = "text",
+      isEditing = false,
+      saveButtonLabel = "Save",
+      editButtonLabel = "Edit",
+      label = "",
+      showIcons = false,
+      saveIcon,
+      editIcon,
+      iconsOnly = false,
+      iconPosition = "left",
+      onEditButtonClick = () => {},
+      onInputChange = () => {},
+      onSaveButtonClick = () => {},
+      ...rest
+    },
+    ref
+  ) => {
+    const [editing, setEditing] = useState<boolean>(isEditing);
+    const [internalValue, setInternalValue] = useState(value ?? defaultValue);
+    const isControlled = value !== undefined;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onInputChange?.(e.target.value);
-  };
+    useEffect(() => {
+      setEditing(isEditing);
+    }, [isEditing]);
 
-  const handleSave = () => {
-    setEditing(false);
-    onSaveButtonClick?.();
-  };
+    useEffect(() => {
+      if (isControlled) {
+        setInternalValue(value);
+      }
+    }, [value, isControlled]);
 
-  const inputProps = {
-    className: cn(styles.input, inputClassName),
-    onChange,
-    value,
-    type: inputType,
-  };
-  const buttonBaseClassName = {
-    [styles.button]: true,
-    [styles.buttonReverse]: iconPosition === "right",
-  };
+    const onEditClick = () => {
+      setEditing(true);
+      onEditButtonClick?.();
+    };
 
-  const EditIcon = editIcon || LuPencil;
-  const SaveIcon = saveIcon || LuCheck;
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+      onInputChange?.(newValue);
+    };
 
-  return (
-    <div className={cn(styles.wrapper, className)}>
-      {editing ? (
-        <div className={cn(styles.contentWrapper, editWrapperClassName)}>
-          {label ? (
-            <label>
-              {label}
+    const handleSave = () => {
+      setEditing(false);
+      onSaveButtonClick?.();
+    };
+
+    const inputProps = {
+      className: cn(styles.input, inputClassName),
+      onChange,
+      value: isControlled ? value : internalValue,
+      type: inputType,
+      ref,
+      ...rest,
+    };
+    const buttonBaseClassName = {
+      [styles.button]: true,
+      [styles.buttonReverse]: iconPosition === "right",
+    };
+
+    const EditIcon = editIcon || LuPencil;
+    const SaveIcon = saveIcon || LuCheck;
+
+    return (
+      <div className={cn(styles.wrapper, className)}>
+        {editing ? (
+          <div className={cn(styles.contentWrapper, editWrapperClassName)}>
+            {label ? (
+              <label>
+                {label}
+                <input {...inputProps} />
+              </label>
+            ) : (
               <input {...inputProps} />
-            </label>
-          ) : (
-            <input {...inputProps} />
-          )}
-          <button
-            data-testid="action-button"
-            className={cn(buttonBaseClassName, saveButtonClassName)}
-            onClick={handleSave}
-            aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
-          >
-            {(showIcons || iconsOnly) && <SaveIcon data-testid="save-icon" />}
-            {!iconsOnly && saveButtonLabel}
-          </button>
-        </div>
-      ) : (
-        <div className={styles.contentWrapper}>
-          <span>{value}</span>
-          <button
-            data-testid="action-button"
-            className={cn(buttonBaseClassName, editButtonClassName)}
-            onClick={onEditClick}
-            aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
-          >
-            {(showIcons || iconsOnly) && <EditIcon data-testid="edit-icon" />}
-            {!iconsOnly && editButtonLabel}
-          </button>
-        </div>
-      )}
-    </div>
-  );
-};
+            )}
+            <button
+              data-testid="action-button"
+              className={cn(buttonBaseClassName, saveButtonClassName)}
+              onClick={handleSave}
+              aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
+            >
+              {(showIcons || iconsOnly) && <SaveIcon data-testid="save-icon" />}
+              {!iconsOnly && saveButtonLabel}
+            </button>
+          </div>
+        ) : (
+          <div className={styles.contentWrapper}>
+            <span>{isControlled ? value : internalValue}</span>
+            <button
+              data-testid="action-button"
+              className={cn(buttonBaseClassName, editButtonClassName)}
+              onClick={onEditClick}
+              aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
+            >
+              {(showIcons || iconsOnly) && <EditIcon data-testid="edit-icon" />}
+              {!iconsOnly && editButtonLabel}
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+InputClickEdit.displayName = "InputClickEdit";
 
 export { InputClickEdit };
 export type { InputClickEditProps };

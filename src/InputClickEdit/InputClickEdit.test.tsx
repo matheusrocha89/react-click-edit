@@ -1,5 +1,6 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
+import { useForm } from "react-hook-form";
 import { InputClickEdit } from "./InputClickEdit";
 
 describe("InputClickEdit", () => {
@@ -143,6 +144,85 @@ describe("InputClickEdit", () => {
         <InputClickEdit editButtonLabel="Modify" saveButtonLabel="Update" />
       );
       expect(screen.getByText("Modify")).toBeInTheDocument();
+    });
+  });
+
+  describe("Controlled Mode", () => {
+    it("should update value only when controlled value prop changes", () => {
+      const { rerender } = render(<InputClickEdit value="Initial" isEditing />);
+
+      const input = screen.getByRole("textbox");
+      fireEvent.change(input, { target: { value: "New Value" } });
+      expect(input).toHaveValue("Initial"); // Should not change without prop update
+
+      rerender(<InputClickEdit value="Updated" isEditing />);
+      expect(input).toHaveValue("Updated");
+    });
+  });
+
+  describe("Uncontrolled Mode", () => {
+    it("should initialize with defaultValue", () => {
+      render(<InputClickEdit defaultValue="Default" isEditing />);
+      expect(screen.getByRole("textbox")).toHaveValue("Default");
+    });
+
+    it("should maintain internal state when uncontrolled", () => {
+      render(<InputClickEdit defaultValue="Initial" isEditing />);
+      const input = screen.getByRole("textbox");
+
+      fireEvent.change(input, { target: { value: "New Value" } });
+      expect(input).toHaveValue("New Value");
+    });
+  });
+
+  describe("React Hook Form Compatibility", () => {
+    const TestForm = () => {
+      const { register, watch } = useForm({
+        defaultValues: {
+          test: "Initial",
+        },
+      });
+      const value = watch("test");
+
+      return (
+        <form>
+          <InputClickEdit {...register("test")} value={value} isEditing />
+        </form>
+      );
+    };
+
+    it("should work with react-hook-form register", async () => {
+      render(<TestForm />);
+      const input = screen.getByRole("textbox");
+
+      expect(input).toHaveValue("Initial");
+      fireEvent.input(input, { target: { value: "Updated" } });
+
+      await waitFor(() => {
+        expect(input).toHaveValue("Updated");
+      });
+    });
+  });
+
+  describe("Ref Handling", () => {
+    it("should forward ref to input element", () => {
+      const ref = vi.fn();
+      render(<InputClickEdit ref={ref} isEditing />);
+
+      expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
+    });
+
+    it("should maintain ref after toggling edit mode", () => {
+      const ref = { current: null };
+      const { rerender } = render(<InputClickEdit ref={ref} />);
+
+      fireEvent.click(screen.getByText("Edit"));
+      expect(ref.current).toBeInstanceOf(HTMLInputElement);
+
+      fireEvent.click(screen.getByText("Save"));
+      rerender(<InputClickEdit ref={ref} />);
+      fireEvent.click(screen.getByText("Edit"));
+      expect(ref.current).toBeInstanceOf(HTMLInputElement);
     });
   });
 });
