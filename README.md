@@ -4,7 +4,6 @@
 
 https://github.com/user-attachments/assets/58c8cca5-878a-4e64-aa06-a8e202318f2a
 
-
 > A lightweight, easy-to-use React component that makes any text editable with a click!
 
 ## ✨ Features
@@ -47,8 +46,9 @@ function App() {
 
 | Prop                 | Type                    | Default  | Description                                 |
 | -------------------- | ----------------------- | -------- | ------------------------------------------- |
-| value                | string                  | ""       | Text to display and edit                    |
-| isEditing            | boolean                 | false    | Initial editing state                       |
+| value                | string                  | ""       | Controlled text value to display and edit   |
+| defaultValue         | string                  | ""       | Initial uncontrolled value                  |
+| isEditing            | boolean                 | false    | Control the editing state                   |
 | inputType            | string                  | "text"   | HTML input type (text, number, email, etc.) |
 | label                | string                  | ""       | Label for the input field                   |
 | className            | string                  | ""       | Container class name                        |
@@ -66,6 +66,8 @@ function App() {
 | onEditButtonClick    | () => void              | () => {} | Callback when edit button is clicked        |
 | onInputChange        | (value: string) => void | () => {} | Callback when input value changes           |
 | onSaveButtonClick    | () => void              | () => {} | Callback when save button is clicked        |
+
+The component also accepts all standard HTML input attributes except for `value`, `defaultValue`, `onChange`, and `type`.
 
 ## 💡 Examples
 
@@ -149,6 +151,32 @@ function ControlledExample() {
   editIcon={FiEdit}
   saveIcon={FiSave}
 />
+```
+
+### React Hook Form Integration
+
+```tsx
+import { useForm, Controller } from "react-hook-form";
+import { InputClickEdit } from "@nobrainers/react-click-edit";
+
+function FormExample() {
+  const { control, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="editableText"
+        control={control}
+        defaultValue="Edit me"
+        render={({ field }) => (
+          <InputClickEdit {...field} onInputChange={field.onChange} />
+        )}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
 ```
 
 ## 🎨 Styling
