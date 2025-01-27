@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/matheusrocha89/react-click-edit/compare/v2.0.0...v2.0.1) (2025-01-27)
+
+
+### Bug Fixes
+
+* adding repository to package.json ([a5d87ec](https://github.com/matheusrocha89/react-click-edit/commit/a5d87ec769d6d2cbe8fb7580d7f698eebe475834))
+
 # [2.0.0](https://github.com/matheusrocha89/react-click-edit/compare/v1.2.1...v2.0.0) (2025-01-27)
 
 
