@@ -44,26 +44,26 @@ function App() {
 
 ## 🔧 Props
 
-| Prop              | Type                                 | Default  | Description                               |
-| ----------------- | ------------------------------------ | -------- | ----------------------------------------- |
-| value             | string                               | -        | Controlled text value to display and edit |
-| defaultValue      | string                               | -        | Initial uncontrolled value                |
-| type              | string                               | "text"   | HTML input type attribute                 |
-| onChange          | ChangeEventHandler<HTMLInputElement> | -        | HTML input onChange handler               |
-| isEditing         | boolean                              | false    | Control the editing state                 |
-| label             | string                               | ""       | Label for the input field                 |
-| className         | string                               | ""       | Container class name                      |
-| editButtonLabel   | React.ReactNode                      | "Edit"   | Custom edit button label                  |
-| saveButtonLabel   | React.ReactNode                      | "Save"   | Custom save button label                  |
-| showIcons         | boolean                              | false    | Toggle button icons visibility            |
-| iconsOnly         | boolean                              | false    | Show only icons without text labels       |
-| editIcon          | React.ElementType                    | LuPencil | Custom edit icon component                |
-| saveIcon          | React.ElementType                    | LuCheck  | Custom save icon component                |
-| iconPosition      | "left" \| "right"                    | "left"   | Position of icons in buttons              |
-| onEditButtonClick | () => void                           | () => {} | Callback when edit button is clicked      |
-| onSaveButtonClick | () => void                           | () => {} | Callback when save button is clicked      |
+| Prop              | Type                                 | Required | Default  | Description                               |
+| ----------------- | ------------------------------------ | -------- | -------- | ----------------------------------------- |
+| value             | string                               | Yes\*    | -        | Controlled text value to display and edit |
+| defaultValue      | string                               | No       | -        | Initial uncontrolled value                |
+| type              | string                               | No       | "text"   | HTML input type attribute                 |
+| onChange          | ChangeEventHandler<HTMLInputElement> | Yes\*    | -        | HTML input onChange handler               |
+| isEditing         | boolean                              | No       | false    | Control the editing state                 |
+| label             | string                               | No       | ""       | Label for the input field                 |
+| className         | string                               | No       | ""       | Container class name                      |
+| editButtonLabel   | React.ReactNode                      | No       | "Edit"   | Custom edit button label                  |
+| saveButtonLabel   | React.ReactNode                      | No       | "Save"   | Custom save button label                  |
+| showIcons         | boolean                              | No       | false    | Toggle button icons visibility            |
+| iconsOnly         | boolean                              | No       | false    | Show only icons without text labels       |
+| editIcon          | React.ElementType                    | No       | LuPencil | Custom edit icon component                |
+| saveIcon          | React.ElementType                    | No       | LuCheck  | Custom save icon component                |
+| iconPosition      | "left" \| "right"                    | No       | "left"   | Position of icons in buttons              |
+| onEditButtonClick | () => void                           | No       | () => {} | Callback when edit button is clicked      |
+| onSaveButtonClick | () => void                           | No       | () => {} | Callback when save button is clicked      |
 
-The component extends `React.InputHTMLAttributes<HTMLInputElement>`, inheriting all native input attributes while preserving special handling for `value`, `defaultValue`, `type`, and `onChange` props.
+\*Either `value` + `onChange` (controlled) or `defaultValue` (uncontrolled) must be provided.
 
 ## 💡 Examples
 
