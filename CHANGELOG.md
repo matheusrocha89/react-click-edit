@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/matheusrocha89/react-click-edit/compare/v1.2.1...v2.0.0) (2025-01-27)
+
+
+### Features
+
+* adding feature to the component be uncontrolled ([cf945b9](https://github.com/matheusrocha89/react-click-edit/commit/cf945b975bb39404c6a01b783ca7855256069e51))
+* extends type from React.InputHTMLAttributes<HTMLInputElement> ([662d82d](https://github.com/matheusrocha89/react-click-edit/commit/662d82d4affa6d516d4618d8ab4f79d544911241))
+
+
+### BREAKING CHANGES
+
+* onInputChange is now onChange
+
 ## [1.2.1](https://github.com/matheusrocha89/react-click-edit/compare/v1.2.0...v1.2.1) (2025-01-23)
 
 
