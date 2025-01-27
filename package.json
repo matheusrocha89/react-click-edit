@@ -1,6 +1,10 @@
 {
   "name": "@nobrainers/react-click-edit",
   "version": "2.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matheusrocha89/react-click-edit"
+  },
   "description": "No Brainer input click to edit",
   "main": "dist/click-edit.umd.js",
   "module": "dist/click-edit.es.js",
