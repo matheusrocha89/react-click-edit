@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect, forwardRef, useCallback } from "react";
 import { LuPencil } from "react-icons/lu";
 import { LuCheck } from "react-icons/lu";
 import cn from "classnames";
@@ -52,7 +52,9 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
     ref
   ) => {
     const [editing, setEditing] = useState<boolean>(isEditing);
-    const [internalValue, setInternalValue] = useState(value ?? defaultValue);
+    const [internalValue, setInternalValue] = useState(
+      () => value ?? defaultValue
+    );
     const isControlled = value !== undefined;
 
     useEffect(() => {
@@ -65,23 +67,26 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
       }
     }, [value, isControlled]);
 
-    const onEditClick = () => {
+    const onEditClick = useCallback(() => {
       setEditing(true);
       onEditButtonClick?.();
-    };
+    }, [onEditButtonClick]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value;
-      if (!isControlled) {
-        setInternalValue(newValue);
-      }
-      onChange?.(e);
-    };
+    const handleChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+        if (!isControlled) {
+          setInternalValue(newValue);
+        }
+        onChange?.(e);
+      },
+      [onChange, isControlled]
+    );
 
-    const handleSave = () => {
+    const handleSave = useCallback(() => {
       setEditing(false);
       onSaveButtonClick?.();
-    };
+    }, [onSaveButtonClick]);
 
     const inputProps = {
       className: cn(styles.input, inputClassName),
@@ -116,6 +121,8 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
               className={cn(buttonBaseClassName, saveButtonClassName)}
               onClick={handleSave}
               aria-label={iconsOnly ? saveButtonLabel?.toString() : undefined}
+              type="button"
+              aria-pressed={editing}
             >
               {(showIcons || iconsOnly) && <SaveIcon data-testid="save-icon" />}
               {!iconsOnly && saveButtonLabel}
@@ -129,6 +136,8 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
               className={cn(buttonBaseClassName, editButtonClassName)}
               onClick={onEditClick}
               aria-label={iconsOnly ? editButtonLabel?.toString() : undefined}
+              type="button"
+              aria-pressed={!editing}
             >
               {(showIcons || iconsOnly) && <EditIcon data-testid="edit-icon" />}
               {!iconsOnly && editButtonLabel}
