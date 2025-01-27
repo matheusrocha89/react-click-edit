@@ -38,36 +38,32 @@ import { InputClickEdit } from "@nobrainers/react-click-edit";
 function App() {
   const [name, setName] = useState("John Doe");
 
-  return <InputClickEdit value={name} onInputChange={setName} />;
+  return <InputClickEdit value={name} onChange={setName} />;
 }
 ```
 
 ## 🔧 Props
 
-| Prop                 | Type                    | Default  | Description                                 |
-| -------------------- | ----------------------- | -------- | ------------------------------------------- |
-| value                | string                  | ""       | Controlled text value to display and edit   |
-| defaultValue         | string                  | ""       | Initial uncontrolled value                  |
-| isEditing            | boolean                 | false    | Control the editing state                   |
-| inputType            | string                  | "text"   | HTML input type (text, number, email, etc.) |
-| label                | string                  | ""       | Label for the input field                   |
-| className            | string                  | ""       | Container class name                        |
-| inputClassName       | string                  | ""       | Input field class name                      |
-| editButtonClassName  | string                  | ""       | Edit button class name                      |
-| saveButtonClassName  | string                  | ""       | Save button class name                      |
-| editWrapperClassName | string                  | ""       | Edit mode wrapper class name                |
-| saveButtonLabel      | React.ReactNode         | "Save"   | Custom save button label                    |
-| editButtonLabel      | React.ReactNode         | "Edit"   | Custom edit button label                    |
-| showIcons            | boolean                 | false    | Toggle button icons visibility              |
-| iconsOnly            | boolean                 | false    | Show only icons without text labels         |
-| editIcon             | React.ElementType       | LuPencil | Custom edit icon component                  |
-| saveIcon             | React.ElementType       | LuCheck  | Custom save icon component                  |
-| iconPosition         | "left" \| "right"       | "left"   | Position of icons in buttons                |
-| onEditButtonClick    | () => void              | () => {} | Callback when edit button is clicked        |
-| onInputChange        | (value: string) => void | () => {} | Callback when input value changes           |
-| onSaveButtonClick    | () => void              | () => {} | Callback when save button is clicked        |
+| Prop              | Type                                 | Default  | Description                               |
+| ----------------- | ------------------------------------ | -------- | ----------------------------------------- |
+| value             | string                               | -        | Controlled text value to display and edit |
+| defaultValue      | string                               | -        | Initial uncontrolled value                |
+| type              | string                               | "text"   | HTML input type attribute                 |
+| onChange          | ChangeEventHandler<HTMLInputElement> | -        | HTML input onChange handler               |
+| isEditing         | boolean                              | false    | Control the editing state                 |
+| label             | string                               | ""       | Label for the input field                 |
+| className         | string                               | ""       | Container class name                      |
+| editButtonLabel   | React.ReactNode                      | "Edit"   | Custom edit button label                  |
+| saveButtonLabel   | React.ReactNode                      | "Save"   | Custom save button label                  |
+| showIcons         | boolean                              | false    | Toggle button icons visibility            |
+| iconsOnly         | boolean                              | false    | Show only icons without text labels       |
+| editIcon          | React.ElementType                    | LuPencil | Custom edit icon component                |
+| saveIcon          | React.ElementType                    | LuCheck  | Custom save icon component                |
+| iconPosition      | "left" \| "right"                    | "left"   | Position of icons in buttons              |
+| onEditButtonClick | () => void                           | () => {} | Callback when edit button is clicked      |
+| onSaveButtonClick | () => void                           | () => {} | Callback when save button is clicked      |
 
-The component also accepts all standard HTML input attributes except for `value`, `defaultValue`, `onChange`, and `type`.
+The component extends `React.InputHTMLAttributes<HTMLInputElement>`, inheriting all native input attributes while preserving special handling for `value`, `defaultValue`, `type`, and `onChange` props.
 
 ## 💡 Examples
 
@@ -76,7 +72,7 @@ The component also accepts all standard HTML input attributes except for `value`
 ```tsx
 function BasicExample() {
   const [name, setName] = useState("John Doe");
-  return <InputClickEdit value={name} onInputChange={setName} />;
+  return <InputClickEdit value={name} onChange={setName} />;
 }
 ```
 
@@ -85,9 +81,9 @@ function BasicExample() {
 ```tsx
 <InputClickEdit
   label="Age"
-  inputType="number"
+  type="number"
   value="25"
-  onInputChange={(value) => console.log(value)}
+  onChange={(value) => console.log(value)}
 />
 ```
 
@@ -135,7 +131,7 @@ function ControlledExample() {
       isEditing={isEditing}
       onEditButtonClick={() => setIsEditing(true)}
       onSaveButtonClick={() => setIsEditing(false)}
-      onInputChange={setValue}
+      onChange={setValue}
     />
   );
 }
@@ -170,9 +166,28 @@ function FormExample() {
         control={control}
         defaultValue="Edit me"
         render={({ field }) => (
-          <InputClickEdit {...field} onInputChange={field.onChange} />
+          <InputClickEdit {...field} onChange={field.onChange} />
         )}
       />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+### Register Example
+
+```tsx
+import { useForm, Controller } from "react-hook-form";
+import { InputClickEdit } from "@nobrainers/react-click-edit";
+
+function RegisterExample() {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <InputClickEdit {...register("editableText")} />
       <button type="submit">Submit</button>
     </form>
   );

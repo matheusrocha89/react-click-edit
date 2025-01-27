@@ -12,24 +12,17 @@ type InputClickEditProps = {
   editButtonClassName?: string;
   saveButtonClassName?: string;
   editWrapperClassName?: string;
-  value?: string;
-  defaultValue?: string;
   saveButtonLabel?: React.ReactNode;
   editButtonLabel?: React.ReactNode;
   label?: string;
-  inputType?: string;
   showIcons?: boolean;
   editIcon?: React.ElementType;
   saveIcon?: React.ElementType;
   iconPosition?: "left" | "right";
   iconsOnly?: boolean;
   onEditButtonClick?: () => void;
-  onInputChange?: (value: string) => void;
   onSaveButtonClick?: () => void;
-} & Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "value" | "defaultValue" | "onChange" | "type"
->;
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
   (
@@ -40,8 +33,8 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
       saveButtonClassName = "",
       editWrapperClassName = "",
       value,
-      defaultValue = "",
-      inputType = "text",
+      defaultValue,
+      type = "text",
       isEditing = false,
       saveButtonLabel = "Save",
       editButtonLabel = "Edit",
@@ -52,7 +45,7 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
       iconsOnly = false,
       iconPosition = "left",
       onEditButtonClick = () => {},
-      onInputChange = () => {},
+      onChange,
       onSaveButtonClick = () => {},
       ...rest
     },
@@ -77,12 +70,12 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
       onEditButtonClick?.();
     };
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       if (!isControlled) {
         setInternalValue(newValue);
       }
-      onInputChange?.(newValue);
+      onChange?.(e);
     };
 
     const handleSave = () => {
@@ -92,9 +85,9 @@ const InputClickEdit = forwardRef<HTMLInputElement, InputClickEditProps>(
 
     const inputProps = {
       className: cn(styles.input, inputClassName),
-      onChange,
+      onChange: handleChange,
       value: isControlled ? value : internalValue,
-      type: inputType,
+      type,
       ref,
       ...rest,
     };

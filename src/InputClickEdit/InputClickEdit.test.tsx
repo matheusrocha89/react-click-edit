@@ -55,12 +55,16 @@ describe("InputClickEdit", () => {
     });
 
     it("should call onInputChange when input value changes", () => {
-      const onInputChange = vi.fn();
-      render(<InputClickEdit isEditing onInputChange={onInputChange} />);
-      fireEvent.change(screen.getByRole("textbox"), {
-        target: { value: "New Value" },
-      });
-      expect(onInputChange).toHaveBeenCalledWith("New Value");
+      const onChange = vi.fn();
+      const mockEventChange = { target: { value: "New Value" } };
+      render(<InputClickEdit isEditing onChange={onChange} />);
+      fireEvent.change(screen.getByRole("textbox"), mockEventChange);
+
+      expect(onChange).toHaveBeenCalledWith(
+        expect.objectContaining({
+          target: expect.objectContaining({ value: "New Value" }),
+        })
+      );
     });
 
     it("should call onSaveButtonClick when save button is clicked", () => {
@@ -133,7 +137,7 @@ describe("InputClickEdit", () => {
 
   describe("Input Types", () => {
     it("should render different input types", () => {
-      render(<InputClickEdit isEditing inputType="number" />);
+      render(<InputClickEdit isEditing type="number" />);
       expect(screen.getByRole("spinbutton")).toBeInTheDocument();
     });
   });
